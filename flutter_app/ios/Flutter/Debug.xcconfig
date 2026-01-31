@@ -1,0 +1,6 @@
+#include "Generated.xcconfig"
+
+// Teli API Configuration (loaded from environment or .env)
+// Do not commit real API keys
+TELI_API_KEY=
+TELI_API_BASE_URL=https://api.teli.ai
