@@ -7,21 +7,22 @@ import 'screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Load environment variables
   await dotenv.load(fileName: '.env');
-  
-  runApp(const DriveBriefApp());
+
+  runApp(const RoadRelayApp());
 }
 
-class DriveBriefApp extends StatefulWidget {
-  const DriveBriefApp({super.key});
+class RoadRelayApp extends StatefulWidget {
+  const RoadRelayApp({super.key});
 
   @override
-  State<DriveBriefApp> createState() => _DriveBriefAppState();
+  State<RoadRelayApp> createState() => _RoadRelayAppState();
 }
 
-class _DriveBriefAppState extends State<DriveBriefApp> with WidgetsBindingObserver {
+class _RoadRelayAppState extends State<RoadRelayApp>
+    with WidgetsBindingObserver {
   late AppState _appState;
   late CarPlayBridge _carPlayBridge;
 
@@ -54,7 +55,7 @@ class _DriveBriefAppState extends State<DriveBriefApp> with WidgetsBindingObserv
     return ChangeNotifierProvider.value(
       value: _appState,
       child: MaterialApp(
-        title: 'DriveBrief',
+        title: 'RoadRelay',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(

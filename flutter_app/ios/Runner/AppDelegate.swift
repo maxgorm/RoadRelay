@@ -1,25 +1,23 @@
 import UIKit
 import Flutter
+import UserNotifications
 
-@UIApplicationMain
-@objc class AppDelegate: FlutterAppDelegate {
+@main
+@objc class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    override func application(
+    func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        GeneratedPluginRegistrant.register(with: self)
-        
-        // Setup CarPlay bridge
-        if let controller = window?.rootViewController as? FlutterViewController {
-            CarPlayBridge.shared.setup(with: controller)
+        // Request notification permissions for simulated SMS
+        LocalNotificationHandler.shared.requestPermissions { granted in
+            print("[AppDelegate] Notification permissions granted: \(granted)")
         }
-        
-        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+        return true
     }
     
-    // Handle scene configuration for CarPlay
-    override func application(
+    // Handle scene configuration for CarPlay and main app
+    func application(
         _ application: UIApplication,
         configurationForConnecting connectingSceneSession: UISceneSession,
         options: UIScene.ConnectionOptions
@@ -31,10 +29,12 @@ import Flutter
             return config
         }
         
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+        let config = UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+        config.delegateClass = SceneDelegate.self
+        return config
     }
     
-    override func application(
+    func application(
         _ application: UIApplication,
         didDiscardSceneSessions sceneSessions: Set<UISceneSession>
     ) {
